@@ -1,54 +1,40 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema(
+const activitySchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "title is required."],
+      required: [true, "Title is required."],
     },
     author: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    description: {
-      type: String,
-    //   required: [true, "add some description."],
-    },
-    stroller: {
-      type: Boolean,
-    //   required: [true, "is it stroller accesible?"],
-    },
+    description: String,
+    stroller: Boolean,
     ageMin: {
-        type: Number,
-        min: 0,
-        default: 0,
+      type: Number,
+      min: 0,
+      default: 0,
     },
-    ageMax:{
-        type: Number,
-        min: 0,
+    ageMax: {
+      type: Number,
+      min: 0,
     },
-    location:{
-        type: String,
+    location: String,
+    venuetype: {
+      type: String,
+      enum: ["indoor", "outdoor"]
     },
-    venuetype:{
-        type: Boolean,
-    },
-    rating:{
-        type: Number,
-    },
-    event:{
-        type: Boolean,
-    },
-    priced:{
-        type: Boolean,
-    }
+    event: String,
+    date: Date,
+    priced: Boolean,
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
 
-const Activity = model("Activity", userSchema);
+const Activity = model("Activity", activitySchema);
 
 module.exports = Activity;
