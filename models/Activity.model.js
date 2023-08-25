@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema(
+const activitySchema = new Schema(
   {
     title: {
       type: String,
@@ -31,14 +31,15 @@ const userSchema = new Schema(
         type: String,
     },
     venuetype:{
-        type: Boolean,
+        type: String,
     },
-    rating:{
+    rating:{ // move as a new model itself
         type: Number,
     },
-    event:{
-        type: Boolean,
+    event:{ //Add Like meet up, get together, small feast
+        type: String,
     },
+    date: Date, //whether it's also a one time thing or not.
     priced:{
         type: Boolean,
     }
@@ -49,6 +50,6 @@ const userSchema = new Schema(
   }
 );
 
-const Activity = model("Activity", userSchema);
+const Activity = model("Activity", activitySchema);
 
 module.exports = Activity;
