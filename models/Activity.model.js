@@ -4,48 +4,33 @@ const activitySchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "title is required."],
+      required: [true, "Title is required."],
     },
     author: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    description: {
-      type: String,
-    //   required: [true, "add some description."],
-    },
-    stroller: {
-      type: Boolean,
-    //   required: [true, "is it stroller accesible?"],
-    },
+    description: String,
+    stroller: Boolean,
     ageMin: {
-        type: Number,
-        min: 0,
-        default: 0,
+      type: Number,
+      min: 0,
+      default: 0,
     },
-    ageMax:{
-        type: Number,
-        min: 0,
+    ageMax: {
+      type: Number,
+      min: 0,
     },
-    location:{
-        type: String,
+    location: String,
+    venuetype: {
+      type: String,
+      enum: ["indoor", "outdoor"]
     },
-    venuetype:{
-        type: String,
-    },
-    rating:{ // move as a new model itself
-        type: Number,
-    },
-    event:{ //Add Like meet up, get together, small feast
-        type: String,
-    },
-    date: Date, //whether it's also a one time thing or not.
-    priced:{
-        type: Boolean,
-    }
+    event: String,
+    date: Date,
+    priced: Boolean,
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
