@@ -18,7 +18,7 @@ router.post('/activity', isAuthenticated, async (req, res, next) => {
 router.get('/activity', async (req, res, next) => {
   try{
     const foundActivity = await Activity.find();
-    res.status(200).json({ foundActivity });
+    res.status(200).json(foundActivity);
   }
   catch(error){
     next(error);
