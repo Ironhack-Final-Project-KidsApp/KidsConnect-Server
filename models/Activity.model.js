@@ -29,6 +29,7 @@ const activitySchema = new Schema(
     event: String,
     date: Date,
     priced: Boolean,
+    image: String,
   },
   {
     timestamps: true,
