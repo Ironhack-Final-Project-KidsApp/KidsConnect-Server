@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/activity', isAuthenticated, async (req, res, next) => {
   try{
     const createdActivity = await Activity.create(req.body);
-    res.status(201).json({ createdActivity });
+    res.status(201).json(createdActivity);
   }
   catch(error){
     next(error);
@@ -18,7 +18,7 @@ router.post('/activity', isAuthenticated, async (req, res, next) => {
 router.get('/activity', async (req, res, next) => {
   try{
     const foundActivity = await Activity.find();
-    res.status(200).json({ foundActivity });
+    res.status(200).json(foundActivity);
   }
   catch(error){
     next(error);
@@ -28,8 +28,8 @@ router.get('/activity', async (req, res, next) => {
 //3-find one activity
 router.get('/activity/:id', async (req,res,next) => {
     try{
-        const oneActivity = await Activity.findById(req.params.id);
-        res.status(200).json({ oneActivity });
+        const oneActivity = await Activity.findById(req.params.id).populate('author');
+        res.status(200).json(oneActivity);
     }
     catch(error){
       next(error)}
