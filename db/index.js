@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const express = require('express')
 const app = express();
+const PORT = 5005;
 
 // ℹ️ Sets the MongoDB URI for our app to have access to it.
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
