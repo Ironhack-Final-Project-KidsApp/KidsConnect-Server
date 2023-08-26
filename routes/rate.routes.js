@@ -36,7 +36,7 @@ router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
         // User has already rated, so update the existing rating
         findUserRating.rate = req.body.rate;
         const updatedRating = await findUserRating.save();
-        res.status(200).json({ updatedRating });
+        res.status(200).json(updatedRating);
       } else {
         // User hasn't rated before, create a new rating
         const makeRating = await Rating.create({
@@ -44,7 +44,7 @@ router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
           user: req.payload._id,
           rate: req.body.rate,
         });
-        res.status(201).json({ makeRating });
+        res.status(201).json(makeRating);
       }
     } catch (error) {
       next(error);
