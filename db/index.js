@@ -10,8 +10,7 @@ const PORT = 5005;
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
 
 const MONGO_URI =
-  process.env.MONGODB_URI;
-  // || "mongodb://127.0.0.1:27017/kidsconnect-server";
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/kidsconnect-server";
 
 mongoose
   .connect(MONGO_URI)
