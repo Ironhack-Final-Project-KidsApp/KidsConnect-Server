@@ -10,8 +10,8 @@ const activitySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    description: String,
-    stroller: Boolean,
+    description: {type: String, default: ''},
+    stroller: {type: Boolean, default: false},
     ageMin: {
       type: Number,
       min: 0,
@@ -20,16 +20,18 @@ const activitySchema = new Schema(
     ageMax: {
       type: Number,
       min: 0,
+      default: 0,
     },
-    location: String,
+    location: {type: String, default: '',},
     venuetype: {
+      default: 'outdoor',
       type: String,
       enum: ["indoor", "outdoor"]
     },
-    event: String,
-    date: Date,
-    priced: Boolean,
-    image: String,
+    event: {type: String, default:''},
+    date: {type: Date, default: Date.now},
+    priced: {type: Boolean, default: false},
+    image: {type: String, default: 'https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.webp'},
   },
   {
     timestamps: true,
