@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const express = require('express')
 const app = express();
-// const PORT = 5005;
+const PORT = 5005 || process.env.PORT;
 
 // ℹ️ Sets the MongoDB URI for our app to have access to it.
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
@@ -17,7 +17,7 @@ mongoose
   .then((x) => {
     const dbName = x.connections[0].name;
     console.log(`Connected to Mongo! Database name: "${dbName}"`);
-    app.listen(process.env.PORT, ()=>{console.log('listening for requests')});
+    app.listen(PORT, ()=>{console.log('listening for requests')});
   })
   .catch((err) => {
     console.error("Error connecting to mongo: ", err);
