@@ -10,7 +10,7 @@ const activitySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    description: {type: String, default: ''},
+    description: {type: String, default: '', required: true},
     stroller: {type: Boolean, default: false},
     ageMin: {
       type: Number,
