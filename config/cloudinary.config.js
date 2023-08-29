@@ -12,8 +12,9 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     allowed_formats: ["jpg", "png"],
-    folder: "kids-connect-app"
+    folder: "profile-image"
   }
 });
- 
+
+
 module.exports = multer({ storage });
