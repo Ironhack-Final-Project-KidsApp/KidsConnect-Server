@@ -39,7 +39,7 @@ router.get("/user/:id", async (req, res) => {
 router.get("/user/:id/activity", async (req, res) => {
   const { id } = req.params;
   try{
-    const userActivity = await Activity.find({user: id})
+    const userActivity = await Activity.find({author: id})
     res.status(200).json(userActivity);
   }
   catch(error){
