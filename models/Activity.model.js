@@ -32,6 +32,7 @@ const activitySchema = new Schema(
     date: {type: Date, default: Date.now},
     priced: {type: Boolean, default: false},
     image: {type: String, default: 'https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.webp'},
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,
