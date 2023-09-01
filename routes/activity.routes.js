@@ -19,6 +19,7 @@ router.get('/activity', async (req, res, next) => {
   try{
     const foundActivities = await Activity.find();
     res.status(200).json(foundActivities);
+
   }
   catch(error){
     next(error);
