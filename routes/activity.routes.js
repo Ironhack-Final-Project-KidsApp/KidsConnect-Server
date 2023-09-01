@@ -17,8 +17,9 @@ router.post('/activity', isAuthenticated, async (req, res, next) => {
 //2-find all the activities
 router.get('/activity', async (req, res, next) => {
   try{
-    const foundActivity = await Activity.find().populate('author');
-    res.status(200).json(foundActivity);
+    const foundActivities = await Activity.find();
+    res.status(200).json(foundActivities);
+
   }
   catch(error){
     next(error);
