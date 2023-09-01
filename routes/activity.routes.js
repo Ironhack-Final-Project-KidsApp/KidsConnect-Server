@@ -19,6 +19,7 @@ router.get('/activity', async (req, res, next) => {
   try{
     const foundActivities = await Activity.find();
     res.status(200).json(foundActivities);
+
   }
   catch(error){
     next(error);
@@ -44,6 +45,7 @@ router.get('/activity/:id', async (req,res,next) => {
     }
     catch(error){next(error)}
 }) */
+//update an activity
 router.put('/activity/:id', async (req, res, next) => {
   try {
     const editedActivity = await Activity.findByIdAndUpdate(
