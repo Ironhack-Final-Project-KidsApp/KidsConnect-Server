@@ -3,6 +3,7 @@ const router = express.Router();
 const fileUploader = require("../config/cloudinary.config");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 router.post('/upload', fileUploader.single('image'), (req, res, next) => {
   if (!req.file) {
@@ -64,21 +65,13 @@ router.get('/user/:id/favorites', async (req, res, next) => {
 });
 
 //add or delete favorites route
-router.post('/user/:id/addfavorite', async (req, res, next) => {
+router.post('/user/:id/addfavorite/:activityId', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    
-    const activityId = req.body.id; //how to find the activityid
-    const activity = await Activity.findById(activityId);
-
-    if (!activity) {
-      return res.status(404).json({ message: 'Activity not found' });
-    }
+  
+    const activityId = req.params.activityId; 
+    /* const activity = await User.find({_id: userId, favorite: activityId}); */
 
     if (user.favorite.includes(activityId)) {
       user.favorite.pull(activityId);
