@@ -65,25 +65,30 @@ router.get('/user/:id/favorites', async (req, res, next) => {
 });
 
 //add or delete favorites route
-router.post('/activity/:id/addfavorite', isAuthenticated, async (req, res, next) => {
+router.post('/user/:activityId/addfavorite', isAuthenticated, async (req, res, next) => {
   try {
-    const userId = req.payload._id; 
-    const activityId = req.params.id;
-
+    //console.log('user id', req.payload._id)
+    const userId = req.payload._id;
     const user = await User.findById(userId);
+    
+    //console.log('activity id', req.params.activityId)
+    const activityId =  req.params.activityId; 
+    const activity = await Activity.findById(activityId);
 
-    if (user.favoriteActivities.includes(activityId)) {
-      return res.status(400).json({ message: 'Activity is already a favorite' });
+    if (user.favorite.includes(activityId)) {
+      user.favorite.pull(activityId);
+      await user.save();
+      res.status(200).json({ message: 'Removed from favorites' });
+    } else {
+      user.favorite.push(activityId);
+      await user.save();
+      res.status(200).json({ message: 'Marked as favorite' });
     }
-
-    user.favoriteActivities.push(activityId);
-    await user.save();
-
-    res.status(201).json({ message: 'Activity marked as favorite' });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 module.exports = router;
