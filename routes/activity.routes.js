@@ -17,7 +17,7 @@ router.post('/activity', isAuthenticated, async (req, res, next) => {
 //2-find all the activities
 router.get('/activity', async (req, res, next) => {
   try{
-    const foundActivities = await Activity.find();
+    const foundActivities = await Activity.find().populate('author');
     res.status(200).json(foundActivities);
 
   }
@@ -62,42 +62,6 @@ router.delete('/activity/:id', async (req, res, next) => {
     next(error);
   }
 })
-
-//add or delete favourites route
-router.post('/activity/:id/favorite', isAuthenticated, async (req, res, next) => {
-  try {
-    const activity = await Activity.findById(req.params.id);
-
-    if (!activity) {
-      return res.status(404).json({ message: 'Activity not found' });
-    }
-    const user = req.payload;
-    
-    if (activity.favorites.includes(user._id)) {
-      activity.favorites.pull(user._id);
-      await activity.save();
-      res.status(200).json({ message: 'Removed from favorites' });
-    } else {
-      activity.favorites.push(user._id);
-      await activity.save();
-      res.status(200).json({ message: 'Marked as favorite' });
-    }
-  } catch (error) {
-    next(error);
-  }
-});
-
-
-//get users favourites:
-router.get('/activity/favorites/:userId', async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-    const favorites = await Activity.find({ favorites: userId });
-    res.status(200).json(favorites);
-  } catch (error) {
-    next(error);
-  }
-});
 
 
 module.exports = router;
