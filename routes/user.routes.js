@@ -53,11 +53,16 @@ router.get('/user/:id/activity', async (req, res) => {
 })
 
 //get users favorites:
-router.get('/user/:id/favorites', async (req, res, next) => {
-  const { id } = req.params;
+router.get('/user/:userId/favorites', isAuthenticated, async (req, res, next) => {
   try {
-    const userFavorites = await User.find({ favorites: id });
-    res.status(200).json(userFavorites);
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    console.log('user', user)
+    const favoriteActivityIds = user.favorite;
+
+    const favoriteActivities = await Activity.find({ _id: { $in: favoriteActivityIds } });
+    console.log('favourites', favoriteActivities )
+    res.status(200).json(favoriteActivities);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
