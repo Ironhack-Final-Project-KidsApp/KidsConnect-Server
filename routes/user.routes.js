@@ -59,41 +59,50 @@ router.get('/user/:userId/favorites', isAuthenticated, async (req, res, next) =>
     const user = await User.findById(userId);
     console.log('user', user)
     const favoriteActivityIds = user.favorite;
-
-    const favoriteActivities = await Activity.find({ _id: { $in: favoriteActivityIds } });
-    console.log('favourites', favoriteActivities )
-    res.status(200).json(favoriteActivities);
+    console.log('favorites', favoriteActivityIds )
+    res.status(200).json(favoriteActivityIds);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-//add or delete favorites route
+// Add favorite route
 router.post('/user/:activityId/addfavorite', isAuthenticated, async (req, res, next) => {
   try {
-    //console.log('user id', req.payload._id)
     const userId = req.payload._id;
     const user = await User.findById(userId);
-    
-    //console.log('activity id', req.params.activityId)
-    const activityId =  req.params.activityId; 
-    const activity = await Activity.findById(activityId);
+    const activityId = req.params.activityId;
+
+    if (!user.favorite.includes(activityId)) {
+      user.favorite.push(activityId);
+      await user.save();
+    }
+
+    res.status(200).json({ message: 'Added as favorite' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Delete favorite route
+router.delete('/user/:activityId/removefavorite', isAuthenticated, async (req, res, next) => {
+  try {
+    const userId = req.payload._id;
+    const user = await User.findById(userId);
+    const activityId = req.params.activityId;
 
     if (user.favorite.includes(activityId)) {
       user.favorite.pull(activityId);
       await user.save();
-      res.status(200).json({ message: 'Removed from favorites' });
-    } else {
-      user.favorite.push(activityId);
-      await user.save();
-      res.status(200).json({ message: 'Marked as favorite' });
     }
+
+    res.status(200).json({ message: 'Removed from favorites' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 module.exports = router;
