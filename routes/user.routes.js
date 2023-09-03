@@ -73,6 +73,7 @@ router.post('/user/:activityId/addfavorite', isAuthenticated, async (req, res, n
     const userId = req.payload._id;
     const user = await User.findById(userId);
     const activityId = req.params.activityId;
+    const activity = await Activity.findById(activityId);
 
     if (!user.favorite.includes(activityId)) {
       user.favorite.push(activityId);
@@ -92,7 +93,8 @@ router.delete('/user/:activityId/removefavorite', isAuthenticated, async (req, r
     const userId = req.payload._id;
     const user = await User.findById(userId);
     const activityId = req.params.activityId;
-
+    const activity = await Activity.findById(activityId);
+    
     if (user.favorite.includes(activityId)) {
       user.favorite.pull(activityId);
       await user.save();
