@@ -15,8 +15,7 @@ const ratingSchema = new Schema(
     rate: {
       type: Number,
       max: 5,
-      min: 0,
-      required: [true, "add some description."],
+      min: 0
     },
   },
   {
