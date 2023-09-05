@@ -28,7 +28,7 @@ router.put('/user-image', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate('favorite');
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
