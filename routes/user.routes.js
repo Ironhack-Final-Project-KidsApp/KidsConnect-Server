@@ -33,8 +33,8 @@ router.get('/user/:id', async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    const { image } = user;
-    res.json({ image: image });
+    const { image, favorite } = user;
+    res.json({ image: image, favorite: favorite });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
