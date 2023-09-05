@@ -3,6 +3,24 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Rating = require("../models/Rating.model");
 const router = express.Router();
 
+//get request for the current rating of the user
+router.get('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
+  try {
+    const findUserRating = await Rating.findOne({
+      activity: req.params.id,
+      user: req.payload._id,
+    });
+
+    if (findUserRating) {
+      res.status(200).json({ rate: findUserRating.rate });
+    } else {
+      res.status(200).json({ rate: 0 });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
     try {
       const findUserRating = await Rating.findOne({
@@ -12,6 +30,7 @@ router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
   
       if (findUserRating) {
         findUserRating.rate = req.body.rate;
+        console.log('body rate', req.body.rate)
         const updatedRating = await findUserRating.save();
         res.status(200).json(updatedRating);
       } else {
@@ -29,7 +48,7 @@ router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
   
   
   //will get the average rating of certain activityID
-  router.get('/activity/:id/rating', async (req,res,next) => {
+  router.get('/activity/:id/avarageRating', async (req,res,next) => {
       try{
           const findActivity = await Rating.find({activity: req.params.id});
           if (findActivity.length === 0) {
