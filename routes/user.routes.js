@@ -28,7 +28,10 @@ router.put('/user-image', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id).populate('favorite');
+    const user = await User.findById(id).populate({
+      path : 'favorite',
+      populate : {path : 'author'}
+    });
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -44,7 +47,7 @@ router.get('/user/:id', async (req, res) => {
 router.get('/user/:id/activity', async (req, res) => {
   const { id } = req.params;
   try{
-    const userActivity = await Activity.find({author: id}).populate('author');
+    const userActivity = await Activity.find({author: id}).sort('-date').populate('author');
     res.status(200).json(userActivity);
   } catch (err) {
     console.error(err);
