@@ -1,7 +1,17 @@
 const express = require("express");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
-const Activity = require("../models/Activity.model");
 const router = express.Router();
+const fileUploader = require("../config/cloudinary.config");
+const Activity = require("../models/Activity.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
+router.post('/upload-activity-image', fileUploader.single('activityImage'), (req, res, next) => {
+  if (!req.file) {
+    next(new Error('No file uploaded for activity!'));
+    return;
+  }
+  res.json({ fileUrl: req.file.path });
+});
+
 
 //1-create an activity
 router.post('/activity', isAuthenticated, async (req, res, next) => {
