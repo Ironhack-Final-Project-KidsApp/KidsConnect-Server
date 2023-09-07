@@ -31,7 +31,7 @@ const activitySchema = new Schema(
     event: {type: String, default:''},
     date: {type: Date, default: Date.now},
     priced: {type: Boolean, default: false},
-    image: {type: String, default: 'https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.webp'},
+    activityImage: {type: String, default: 'https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.webp'},
   },
   {
     timestamps: true,
