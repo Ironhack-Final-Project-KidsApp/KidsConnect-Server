@@ -47,7 +47,7 @@ router.get('/user/:id', async (req, res) => {
 router.get('/user/:id/activity', async (req, res) => {
   const { id } = req.params;
   try{
-    const userActivity = await Activity.find({author: id}).populate('author');
+    const userActivity = await Activity.find({author: id}).sort('-date').populate('author');
     res.status(200).json(userActivity);
   } catch (err) {
     console.error(err);
