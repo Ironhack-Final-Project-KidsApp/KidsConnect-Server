@@ -23,6 +23,8 @@ const activitySchema = new Schema(
       default: 0,
     },
     location: {type: String, default: '',},
+    lat: {type: Number, default: null},
+    lng: {type: Number, default: null},
     venuetype: {
       default: 'outdoor',
       type: String,
