@@ -1,6 +1,6 @@
 # KidsConnect Explore and Play 
 
-![KidsConnect Logo](/kidsconnect-client/src/assets/logo2.png)
+![KidsConnect Logo](/assets/logo2.png)
 
 Check the project here!
 
