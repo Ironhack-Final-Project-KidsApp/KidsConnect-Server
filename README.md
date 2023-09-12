@@ -36,5 +36,8 @@ KidsConnect Explore and Play was created with the aim of offering a list of acti
 
 ## Links
 - [Trello Link](https://trello.com/b/Dg8I4y1C/kidsconnect-explore-play)
-- [Slides Link]()
+- [Slides Link](https://docs.google.com/presentation/d/1C7RCGNCp4GQ2grcZDPDyAW-VRrIWoDHnQsYQmK-a3Lw/edit#slide=id.g27ded414c22_0_1)
 - [Github repository Link](https://github.com/Ironhack-Final-Project-KidsApp) 
+
+## Used tools
+- JavaScript, MUI, JXS, Node.js, Express.js, React
