@@ -55,7 +55,6 @@ router.get('/user/:id/activity', async (req, res) => {
   }
 })
 
-//get users favorites:
 router.get('/user/:userId/favorites', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -70,7 +69,6 @@ router.get('/user/:userId/favorites', isAuthenticated, async (req, res, next) =>
   }
 });
 
-// Add favorite route
 router.post('/user/:activityId/addfavorite', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.payload._id;
@@ -90,7 +88,6 @@ router.post('/user/:activityId/addfavorite', isAuthenticated, async (req, res, n
   }
 });
 
-// Delete favorite route
 router.delete('/user/:activityId/removefavorite', isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.payload._id;

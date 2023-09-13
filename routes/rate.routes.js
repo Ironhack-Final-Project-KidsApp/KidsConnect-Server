@@ -3,7 +3,6 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Rating = require("../models/Rating.model");
 const router = express.Router();
 
-//get request for the current rating of the user
 router.get('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
   try {
     const findUserRating = await Rating.findOne({
@@ -47,8 +46,7 @@ router.post('/activity/:id/rating', isAuthenticated, async (req, res, next) => {
   });
   
   
-  //will get the average rating of certain activityID
-  router.get('/activity/:id/avarageRating', async (req,res,next) => {
+router.get('/activity/:id/avarageRating', async (req,res,next) => {
       try{
           const findActivity = await Rating.find({activity: req.params.id});
           if (findActivity.length === 0) {

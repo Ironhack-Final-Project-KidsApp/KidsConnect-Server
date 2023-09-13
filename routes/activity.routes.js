@@ -12,8 +12,6 @@ router.post('/upload-activity-image', fileUploader.single('activityImage'), (req
   res.json({ fileUrl: req.file.path });
 });
 
-
-//1-create an activity
 router.post('/activity', isAuthenticated, async (req, res, next) => {
   try{
     const createdActivity = await Activity.create(req.body);
@@ -24,7 +22,6 @@ router.post('/activity', isAuthenticated, async (req, res, next) => {
   }
 });
 
-//2-find all the activities
 router.get('/activity', async (req, res, next) => {
   try{
     const foundActivities = await Activity.find().populate('author');
@@ -36,7 +33,6 @@ router.get('/activity', async (req, res, next) => {
   }
 });
 
-//3-find one activity
 router.get('/activity/:id', async (req,res,next) => {
     try{
         const oneActivity = await Activity.findById(req.params.id).populate('author');
@@ -46,7 +42,6 @@ router.get('/activity/:id', async (req,res,next) => {
       next(error)}
 });
 
-//4-edit an activity
 router.put('/activity/:id', async (req, res, next) => {
   try {
     const editedActivity = await Activity.findByIdAndUpdate(
@@ -60,7 +55,6 @@ router.put('/activity/:id', async (req, res, next) => {
   }
 });
 
-//delete an activity - only by the admin?? - create a admin middleware?
 router.delete('/activity/:id', async (req, res, next) => {
   try {
     const deletedActivity = await Activity.findByIdAndDelete(
@@ -72,6 +66,5 @@ router.delete('/activity/:id', async (req, res, next) => {
     next(error);
   }
 })
-
 
 module.exports = router;
